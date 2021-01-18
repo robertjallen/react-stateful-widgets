@@ -50,6 +50,20 @@ const Todos = () => {
     setTodo(initialTodo)
   }
   console.log('outside func:', {todos})
+
+  const toggleCompleted = (id) => {
+    setTodos(todos.map(todo => {
+        if(todo.id === id){
+          return {
+            ...todo,
+            complete: !todo.complete
+          }
+        }
+        return todo
+      }))
+    console.log(id)
+  }
+
   return (
     <div>
       <form
@@ -72,7 +86,10 @@ const Todos = () => {
       </form>
       <div className={'todo-list'}>
         {todos.map(todo => {
-          return <p>{todo.description}</p>
+          return <p
+          style={{textDecoration: todo.complete && "line-through"}}
+          onClick={() => toggleCompleted(todo.id)}
+          >{todo.description}</p>
         })}
       </div>
     </div>
